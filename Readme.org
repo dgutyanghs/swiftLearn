@@ -52,3 +52,43 @@ print("square.origin is now at (\(square.origin.x), \(square.origin.y))")
 
 
 #+END_SRC
+
+** Global constant and variables are always computed lazily
+#+BEGIN_EXAMPLE
+NOTE
+
+Global constants and variables are always computed lazily, in a similar manner to Lazy Stored Properties. Unlike lazy stored properties, global constants and variables do not need to be marked with the lazy modifier.
+
+Local constants and variables are never computed lazily.
+#+END_EXAMPLE
+
+** Type property syntax
+***  'static' VS 'class' type property 
+#+BEGIN_EXAMPLE
+You define type properties with the static keyword. For computed type properties for class types, you can use the class keyword instead to allow subclasses to override the superclass’s implementation.
+#+END_EXAMPLE
+
+#+BEGIN_SRC swift
+struct SomeStructure {
+    static var storedTypeProperty = "Some value."
+    static var computedTypeProperty: Int {
+        return 1
+    }
+}
+enum SomeEnumeration {
+    static var storedTypeProperty = "Some value."
+    static var computedTypeProperty: Int {
+        return 6
+    }
+}
+class SomeClass {
+    static var storedTypeProperty = "Some value."
+    static var computedTypeProperty: Int {
+        return 27
+    }
+    class var overrideableComputedTypeProperty: Int {
+        return 107
+    }
+}
+
+#+END_SRC

@@ -1,22 +1,25 @@
 
 # Table of Contents
 
-1.  [Swift 笔记](#org110dfe8)
-    1.  [Computed Property](#orgb344b32)
-        1.  [If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.](#org718e522)
+1.  [Swift 笔记](#org97fe02a)
+    1.  [Computed Property](#org4faf4d3)
+        1.  [If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.](#orgdd49378)
+    2.  [Global constant and variables are always computed lazily](#orgc370580)
+    3.  [Type property syntax](#orgbf41707)
+        1.  ['static' VS 'class' type property](#orgbecf57a)
 
 
-<a id="org110dfe8"></a>
+<a id="org97fe02a"></a>
 
 # Swift 笔记
 
 
-<a id="orgb344b32"></a>
+<a id="org4faf4d3"></a>
 
 ## Computed Property
 
 
-<a id="org718e522"></a>
+<a id="orgdd49378"></a>
 
 ### If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.
 
@@ -66,4 +69,49 @@
               }
           }
       }
+
+
+<a id="orgc370580"></a>
+
+## Global constant and variables are always computed lazily
+
+    NOTE
+    
+    Global constants and variables are always computed lazily, in a similar manner to Lazy Stored Properties. Unlike lazy stored properties, global constants and variables do not need to be marked with the lazy modifier.
+    
+    Local constants and variables are never computed lazily.
+
+
+<a id="orgbf41707"></a>
+
+## Type property syntax
+
+
+<a id="orgbecf57a"></a>
+
+### 'static' VS 'class' type property
+
+    You define type properties with the static keyword. For computed type properties for class types, you can use the class keyword instead to allow subclasses to override the superclass’s implementation.
+
+    struct SomeStructure {
+        static var storedTypeProperty = "Some value."
+        static var computedTypeProperty: Int {
+            return 1
+        }
+    }
+    enum SomeEnumeration {
+        static var storedTypeProperty = "Some value."
+        static var computedTypeProperty: Int {
+            return 6
+        }
+    }
+    class SomeClass {
+        static var storedTypeProperty = "Some value."
+        static var computedTypeProperty: Int {
+            return 27
+        }
+        class var overrideableComputedTypeProperty: Int {
+            return 107
+        }
+    }
 
