@@ -92,3 +92,15 @@ class SomeClass {
 }
 
 #+END_SRC
+** 泛型参数声明例子
+#+BEGIN_SRC swift
+    class func startToScan<T:UIViewController> (parentVc: T) where T:MyLBXScanDelegate, T:LBXScanViewControllerDelegate  {
+        let vc = ScanCamera.ZhiFuBaoStyle()
+        vc.delegate = parentVc
+        vc.scanResultDelegate = parentVc
+        parentVc.navigationController?.present(vc, animated: true, completion: nil)
+    }
+
+#+END_SRC
+
+parentVc 是UIViewController的类型或子类，同时遵守MyLBXScanDelegate和 LBXScanViewControllerDelegate协议。

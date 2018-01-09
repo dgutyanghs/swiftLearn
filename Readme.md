@@ -1,25 +1,26 @@
 
 # Table of Contents
 
-1.  [Swift 笔记](#org97fe02a)
-    1.  [Computed Property](#org4faf4d3)
-        1.  [If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.](#orgdd49378)
-    2.  [Global constant and variables are always computed lazily](#orgc370580)
-    3.  [Type property syntax](#orgbf41707)
-        1.  ['static' VS 'class' type property](#orgbecf57a)
+1.  [Swift 笔记](#orgbe4f462)
+    1.  [Computed Property](#orgb86da12)
+        1.  [If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.](#org765d6e4)
+    2.  [Global constant and variables are always computed lazily](#orgb33f4ce)
+    3.  [Type property syntax](#orgdff4cb1)
+        1.  ['static' VS 'class' type property](#org587d819)
+    4.  [泛型参数声明例子](#orgd0d8843)
 
 
-<a id="org97fe02a"></a>
+<a id="orgbe4f462"></a>
 
 # Swift 笔记
 
 
-<a id="org4faf4d3"></a>
+<a id="orgb86da12"></a>
 
 ## Computed Property
 
 
-<a id="orgdd49378"></a>
+<a id="org765d6e4"></a>
 
 ### If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.
 
@@ -71,7 +72,7 @@
       }
 
 
-<a id="orgc370580"></a>
+<a id="orgb33f4ce"></a>
 
 ## Global constant and variables are always computed lazily
 
@@ -82,12 +83,12 @@
     Local constants and variables are never computed lazily.
 
 
-<a id="orgbf41707"></a>
+<a id="orgdff4cb1"></a>
 
 ## Type property syntax
 
 
-<a id="orgbecf57a"></a>
+<a id="org587d819"></a>
 
 ### 'static' VS 'class' type property
 
@@ -114,4 +115,18 @@
             return 107
         }
     }
+
+
+<a id="orgd0d8843"></a>
+
+## 泛型参数声明例子
+
+    class func startToScan<T:UIViewController> (parentVc: T) where T:MyLBXScanDelegate, T:LBXScanViewControllerDelegate  {
+        let vc = ScanCamera.ZhiFuBaoStyle()
+        vc.delegate = parentVc
+        vc.scanResultDelegate = parentVc
+        parentVc.navigationController?.present(vc, animated: true, completion: nil)
+    }
+
+parentVc 是UIViewController的类型或子类，同时遵守MyLBXScanDelegate和 LBXScanViewControllerDelegate协议。
 
