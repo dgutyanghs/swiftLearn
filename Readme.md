@@ -1,26 +1,27 @@
 
 # Table of Contents
 
-1.  [Swift 笔记](#orgbe4f462)
-    1.  [Computed Property](#orgb86da12)
-        1.  [If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.](#org765d6e4)
-    2.  [Global constant and variables are always computed lazily](#orgb33f4ce)
-    3.  [Type property syntax](#orgdff4cb1)
-        1.  ['static' VS 'class' type property](#org587d819)
-    4.  [泛型参数声明例子](#orgd0d8843)
+1.  [Swift 笔记](#org7b2392c)
+    1.  [Computed Property](#orgd00e258)
+        1.  [If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.](#org86434b0)
+    2.  [Global constant and variables are always computed lazily](#orgb07800f)
+    3.  [Type property syntax](#orga21fc6d)
+        1.  ['static' VS 'class' type property](#org025aced)
+    4.  [泛型参数声明例子](#org051ff1a)
+    5.  [DispatchQueue.main.asyncAfter使用方法](#org35e53da)
 
 
-<a id="orgbe4f462"></a>
+<a id="org7b2392c"></a>
 
 # Swift 笔记
 
 
-<a id="orgb86da12"></a>
+<a id="orgd00e258"></a>
 
 ## Computed Property
 
 
-<a id="org765d6e4"></a>
+<a id="org86434b0"></a>
 
 ### If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.
 
@@ -72,7 +73,7 @@
       }
 
 
-<a id="orgb33f4ce"></a>
+<a id="orgb07800f"></a>
 
 ## Global constant and variables are always computed lazily
 
@@ -83,12 +84,12 @@
     Local constants and variables are never computed lazily.
 
 
-<a id="orgdff4cb1"></a>
+<a id="orga21fc6d"></a>
 
 ## Type property syntax
 
 
-<a id="org587d819"></a>
+<a id="org025aced"></a>
 
 ### 'static' VS 'class' type property
 
@@ -117,7 +118,7 @@
     }
 
 
-<a id="orgd0d8843"></a>
+<a id="org051ff1a"></a>
 
 ## 泛型参数声明例子
 
@@ -128,5 +129,25 @@
         parentVc.navigationController?.present(vc, animated: true, completion: nil)
     }
 
+函数有返回值
+
+    
+    class func startToScan<T:UIViewController> (parentVc: T) ->LBXScanViewController where T:MyLBXScanDelegate, T:LBXScanViewControllerDelegate  {
+        let vc = ScanCamera.ZhiFuBaoStyle()
+        vc.delegate = parentVc
+        vc.scanResultDelegate = parentVc
+        parentVc.navigationController?.present(vc, animated: true, completion: nil)
+        return vc
+
 parentVc 是UIViewController的类型或子类，同时遵守MyLBXScanDelegate和 LBXScanViewControllerDelegate协议。
+
+
+<a id="org35e53da"></a>
+
+## DispatchQueue.main.asyncAfter使用方法
+
+    let deadlineTime = DispatchTime.now() + .seconds(1)
+    DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+        print("test")
+    }
 

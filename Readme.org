@@ -103,4 +103,22 @@ class SomeClass {
 
 #+END_SRC
 
+函数有返回值
+#+BEGIN_SRC swift
+
+    class func startToScan<T:UIViewController> (parentVc: T) ->LBXScanViewController where T:MyLBXScanDelegate, T:LBXScanViewControllerDelegate  {
+        let vc = ScanCamera.ZhiFuBaoStyle()
+        vc.delegate = parentVc
+        vc.scanResultDelegate = parentVc
+        parentVc.navigationController?.present(vc, animated: true, completion: nil)
+        return vc
+#+END_SRC
+
 parentVc 是UIViewController的类型或子类，同时遵守MyLBXScanDelegate和 LBXScanViewControllerDelegate协议。
+** DispatchQueue.main.asyncAfter使用方法
+#+BEGIN_SRC swift
+let deadlineTime = DispatchTime.now() + .seconds(1)
+DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
+    print("test")
+}
+#+END_SRC
