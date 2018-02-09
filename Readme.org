@@ -122,3 +122,20 @@ DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
     print("test")
 }
 #+END_SRC
+** RxSwift中 thottle 和 debounce区别 
+#+BEGIN_SRC swift
+        rtDisposed = rtObservable.observeOn(speechScheduler)
+            .throttle(20.0, scheduler:speechScheduler) //20.0放行一个最新消息， 
+//            .debounce(20.0, scheduler: speechScheduler) //20.0内无新消息，将action,如有，取消旧的消息，重新等待
+            .filter { $0 > 0 }
+            .subscribe( onNext:{
+               [unowned self] value  in
+                self.handleRealTimeHR(value)
+            },
+             onCompleted:{
+                print("dispose completed")
+            }, onDisposed:{
+                print("disposed rtDisposed")
+            })
+
+#+END_SRC

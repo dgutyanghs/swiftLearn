@@ -1,27 +1,28 @@
 
 # Table of Contents
 
-1.  [Swift 笔记](#org7b2392c)
-    1.  [Computed Property](#orgd00e258)
-        1.  [If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.](#org86434b0)
-    2.  [Global constant and variables are always computed lazily](#orgb07800f)
-    3.  [Type property syntax](#orga21fc6d)
-        1.  ['static' VS 'class' type property](#org025aced)
-    4.  [泛型参数声明例子](#org051ff1a)
-    5.  [DispatchQueue.main.asyncAfter使用方法](#org35e53da)
+1.  [Swift 笔记](#org9f7dafb)
+    1.  [Computed Property](#orgd8e098b)
+        1.  [If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.](#org48b4eae)
+    2.  [Global constant and variables are always computed lazily](#org7a345a6)
+    3.  [Type property syntax](#org9f6be2b)
+        1.  ['static' VS 'class' type property](#orgc4cede0)
+    4.  [泛型参数声明例子](#org4f742cb)
+    5.  [DispatchQueue.main.asyncAfter使用方法](#orgba80cf6)
+    6.  [RxSwift中 thottle 和 debounce区别](#org8859a47)
 
 
-<a id="org7b2392c"></a>
+<a id="org9f7dafb"></a>
 
 # Swift 笔记
 
 
-<a id="orgd00e258"></a>
+<a id="orgd8e098b"></a>
 
 ## Computed Property
 
 
-<a id="org86434b0"></a>
+<a id="org48b4eae"></a>
 
 ### If a computed property’s setter does not define a name for the new value to be set, a default name of newValue is used.
 
@@ -73,7 +74,7 @@
       }
 
 
-<a id="orgb07800f"></a>
+<a id="org7a345a6"></a>
 
 ## Global constant and variables are always computed lazily
 
@@ -84,12 +85,12 @@
     Local constants and variables are never computed lazily.
 
 
-<a id="orga21fc6d"></a>
+<a id="org9f6be2b"></a>
 
 ## Type property syntax
 
 
-<a id="org025aced"></a>
+<a id="orgc4cede0"></a>
 
 ### 'static' VS 'class' type property
 
@@ -118,7 +119,7 @@
     }
 
 
-<a id="org051ff1a"></a>
+<a id="org4f742cb"></a>
 
 ## 泛型参数声明例子
 
@@ -142,7 +143,7 @@
 parentVc 是UIViewController的类型或子类，同时遵守MyLBXScanDelegate和 LBXScanViewControllerDelegate协议。
 
 
-<a id="org35e53da"></a>
+<a id="orgba80cf6"></a>
 
 ## DispatchQueue.main.asyncAfter使用方法
 
@@ -150,4 +151,23 @@ parentVc 是UIViewController的类型或子类，同时遵守MyLBXScanDelegate�
     DispatchQueue.main.asyncAfter(deadline: deadlineTime) {
         print("test")
     }
+
+
+<a id="org8859a47"></a>
+
+## RxSwift中 thottle 和 debounce区别
+
+            rtDisposed = rtObservable.observeOn(speechScheduler)
+                .throttle(20.0, scheduler:speechScheduler) //20.0放行一个最新消息， 
+    //            .debounce(20.0, scheduler: speechScheduler) //20.0内无新消息，将action,如有，取消旧的消息，重新等待
+                .filter { $0 > 0 }
+                .subscribe( onNext:{
+                   [unowned self] value  in
+                    self.handleRealTimeHR(value)
+                },
+                 onCompleted:{
+                    print("dispose completed")
+                }, onDisposed:{
+                    print("disposed rtDisposed")
+                })
 
